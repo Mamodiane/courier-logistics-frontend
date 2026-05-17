@@ -239,31 +239,31 @@ Authorization: Bearer token
 
 ### Login Page
 
-![Login Page](screenshots/login.png)
+![Login Page](public/screenshots/login.png)
 
 ---
 
 ### Register Page
 
-![Register Page](screenshots/register.png)
+![Register Page](public/screenshots/register.png)
 
 ---
 
 ### Dashboard
 
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](public/screenshots/dashboard.png)
 
 ---
 
 ### Create Parcel
 
-![Create Parcel](screenshots/create-parcel.png)
+![Create Parcel](public/screenshots/create-parcel.png)
 
 ---
 
 ### Edit Parcel
 
-![Edit Parcel](screenshots/edit-parcel.png)
+![Edit Parcel](public/screenshots/edit-parcel.png)
 
 ---
 
