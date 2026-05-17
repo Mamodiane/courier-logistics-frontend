@@ -19,7 +19,11 @@ const login = async () => {
     await authStore.login(form.value)
     router.push('/dashboard')
   } catch (err) {
-    error.value = 'Invalid login details'
+    if (err.response?.data?.errors) {
+  error.value = Object.values(err.response.data.errors).flat().join(' ')
+} else {
+  error.value = 'Invalid Login Creatantials'
+}
   }
 }
 </script>

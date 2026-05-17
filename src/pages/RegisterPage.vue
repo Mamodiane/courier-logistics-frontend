@@ -23,7 +23,11 @@ const register = async () => {
 
     router.push('/dashboard')
   } catch (err) {
-    error.value = 'Registration failed'
+    if (err.response?.data?.errors) {
+  error.value = Object.values(err.response.data.errors).flat().join(' ')
+} else {
+  error.value = 'Registration failed'
+}
   }
 }
 </script>

@@ -1,9 +1,12 @@
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { onMounted, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import api from '@/services/api'
 
+const route = useRoute()
 const router = useRouter()
+
+const loading = ref(false)
 const error = ref('')
 
 const form = ref({
@@ -18,26 +21,53 @@ const form = ref({
   status: 'pending',
 })
 
-const createParcel = async () => {
+const fetchParcel = async () => {
   try {
-    error.value = ''
-    await api.post('/parcels', form.value)
-    router.push('/dashboard')
+    loading.value = true
+    const response = await api.get(`/parcels/${route.params.id}`)
+    const parcel = response.data.data
+
+    form.value = {
+      sender_name: parcel.sender_name,
+      sender_phone: parcel.sender_phone,
+      receiver_name: parcel.receiver_name,
+      receiver_phone: parcel.receiver_phone,
+      pickup_address: parcel.pickup_address,
+      delivery_address: parcel.delivery_address,
+      parcel_description: parcel.parcel_description,
+      weight: parcel.weight,
+      status: parcel.status,
+    }
   } catch (err) {
-    if (err.response?.data?.errors) {
-  error.value = Object.values(err.response.data.errors).flat().join(' ')
-} else {
-  error.value = 'Creating Parcel failed'
-}
+    error.value = 'Failed to load parcel'
+  } finally {
+    loading.value = false
   }
 }
+
+const updateParcel = async () => {
+  try {
+    error.value = ''
+    await api.put(`/parcels/${route.params.id}`, form.value)
+    router.push('/dashboard')
+  } catch (err) {
+    error.value = 'Failed to update parcel'
+  }
+}
+
+onMounted(() => {
+  fetchParcel()
+})
 </script>
 
 <template>
   <div>
-    <h1>Create Parcel</h1>
+    <h1>Edit Parcel</h1>
 
-    <form @submit.prevent="createParcel">
+    <p v-if="loading">Loading parcel...</p>
+    <p v-if="error">{{ error }}</p>
+
+    <form v-if="!loading" @submit.prevent="updateParcel">
       <input v-model="form.sender_name" placeholder="Sender Name" />
       <input v-model="form.sender_phone" placeholder="Sender Phone" />
       <input v-model="form.receiver_name" placeholder="Receiver Name" />
@@ -55,9 +85,7 @@ const createParcel = async () => {
         <option value="cancelled">Cancelled</option>
       </select>
 
-      <button type="submit">Create Parcel</button>
+      <button type="submit">Update Parcel</button>
     </form>
-
-    <p v-if="error">{{ error }}</p>
   </div>
 </template>
