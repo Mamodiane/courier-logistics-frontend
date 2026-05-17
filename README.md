@@ -233,6 +233,43 @@ Authorization: Bearer token
 
 ---
 
+---
+
+## Screenshots
+
+### Login Page
+
+![Login Page](screenshots/login.png)
+
+---
+
+### Register Page
+
+![Register Page](screenshots/register.png)
+
+---
+
+### Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+---
+
+### Create Parcel
+
+![Create Parcel](screenshots/create-parcel.png)
+
+---
+
+### Edit Parcel
+
+![Edit Parcel](screenshots/edit-parcel.png)
+
+---
+
+
+
+
 ## Future Improvements
 
 - Pagination
