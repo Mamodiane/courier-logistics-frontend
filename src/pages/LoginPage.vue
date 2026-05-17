@@ -29,16 +29,36 @@ const login = async () => {
 </script>
 
 <template>
-  <div>
-    <h1>Login</h1>
+  <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow">
+    <h1 class="text-2xl font-bold mb-6 text-gray-800">
+      Login
+    </h1>
 
     <form @submit.prevent="login">
-      <input v-model="form.email" type="email" placeholder="Email" />
-      <input v-model="form.password" type="password" placeholder="Password" />
+      <input
+        v-model="form.email"
+        type="email"
+        placeholder="Email"
+        class="w-full border border-gray-300 rounded px-4 py-2 mb-4 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
 
-      <button type="submit">Login</button>
+      <input
+        v-model="form.password"
+        type="password"
+        placeholder="Password"
+        class="w-full border border-gray-300 rounded px-4 py-2 mb-4 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+
+      <button
+        type="submit"
+        class="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      >
+        Login
+      </button>
     </form>
 
-    <p v-if="error">{{ error }}</p>
+    <p v-if="error" class="text-red-500 mt-4">
+      {{ error }}
+    </p>
   </div>
 </template>

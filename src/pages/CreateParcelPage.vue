@@ -34,20 +34,66 @@ const createParcel = async () => {
 </script>
 
 <template>
-  <div>
-    <h1>Create Parcel</h1>
+  <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow">
+    <h1 class="text-2xl font-bold mb-6 text-gray-800">
+      Create Parcel
+    </h1>
 
     <form @submit.prevent="createParcel">
-      <input v-model="form.sender_name" placeholder="Sender Name" />
-      <input v-model="form.sender_phone" placeholder="Sender Phone" />
-      <input v-model="form.receiver_name" placeholder="Receiver Name" />
-      <input v-model="form.receiver_phone" placeholder="Receiver Phone" />
-      <input v-model="form.pickup_address" placeholder="Pickup Address" />
-      <input v-model="form.delivery_address" placeholder="Delivery Address" />
-      <input v-model="form.parcel_description" placeholder="Parcel Description" />
-      <input v-model="form.weight" type="number" step="0.01" placeholder="Weight" />
+      <input
+        v-model="form.sender_name"
+        placeholder="Sender Name"
+        class="w-full border border-gray-300 rounded px-4 py-2 mb-4 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
 
-      <select v-model="form.status">
+      <input
+        v-model="form.sender_phone"
+        placeholder="Sender Phone"
+        class="w-full border border-gray-300 rounded px-4 py-2 mb-4 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+
+      <input
+        v-model="form.receiver_name"
+        placeholder="Receiver Name"
+        class="w-full border border-gray-300 rounded px-4 py-2 mb-4 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+
+      <input
+        v-model="form.receiver_phone"
+        placeholder="Receiver Phone"
+        class="w-full border border-gray-300 rounded px-4 py-2 mb-4 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+
+      <input
+        v-model="form.pickup_address"
+        placeholder="Pickup Address"
+        class="w-full border border-gray-300 rounded px-4 py-2 mb-4 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+
+      <input
+        v-model="form.delivery_address"
+        placeholder="Delivery Address"
+        class="w-full border border-gray-300 rounded px-4 py-2 mb-4 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+
+      <input
+        v-model="form.parcel_description"
+        placeholder="Parcel Description"
+        class="w-full border border-gray-300 rounded px-4 py-2 mb-4 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+
+      <input
+        v-model="form.weight"
+        type="number"
+        step="0.01"
+        placeholder="Weight"
+        class="w-full border border-gray-300 rounded px-4 py-2 mb-4 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+
+      <select
+        v-model="form.status"
+        class="w-full border border-gray-300 rounded px-4 py-2 mb-6 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
         <option value="pending">Pending</option>
         <option value="collected">Collected</option>
         <option value="in_transit">In Transit</option>
@@ -55,9 +101,16 @@ const createParcel = async () => {
         <option value="cancelled">Cancelled</option>
       </select>
 
-      <button type="submit">Create Parcel</button>
+      <button
+        type="submit"
+        class="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      >
+        Create Parcel
+      </button>
     </form>
 
-    <p v-if="error">{{ error }}</p>
+    <p v-if="error" class="text-red-500 mt-4">
+      {{ error }}
+    </p>
   </div>
 </template>
