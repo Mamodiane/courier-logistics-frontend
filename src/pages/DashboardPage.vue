@@ -7,6 +7,9 @@ const loading = ref(false)
 const error = ref('')
 const search = ref('')
 
+const currentPage = ref(1)
+const lastPage = ref(1)
+
 const filteredParcels = computed(() => {
   return parcels.value.filter((parcel) => {
     const keyword = search.value.toLowerCase()
@@ -33,13 +36,16 @@ const cancelledParcels = computed(() =>
   parcels.value.filter((parcel) => parcel.status === 'cancelled').length
 )
 
-const fetchParcels = async () => {
+const fetchParcels = async (page = 1) => {
   try {
     loading.value = true
+    error.value = ''
 
-    const response = await api.get('/parcels')
+    const response = await api.get(`/parcels?page=${page}`)
 
     parcels.value = response.data.data
+    currentPage.value = response.data.meta.current_page
+    lastPage.value = response.data.meta.last_page
   } catch (err) {
     error.value = 'Failed to load parcels'
   } finally {
@@ -83,39 +89,23 @@ onMounted(() => {
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
       <div class="bg-white p-4 rounded-lg shadow">
-        <p class="text-gray-500">
-          Total Parcels
-        </p>
-        <h2 class="text-2xl font-bold text-gray-800">
-          {{ totalParcels }}
-        </h2>
+        <p class="text-gray-500">Total Parcels</p>
+        <h2 class="text-2xl font-bold text-gray-800">{{ totalParcels }}</h2>
       </div>
 
       <div class="bg-white p-4 rounded-lg shadow">
-        <p class="text-gray-500">
-          Pending
-        </p>
-        <h2 class="text-2xl font-bold text-yellow-600">
-          {{ pendingParcels }}
-        </h2>
+        <p class="text-gray-500">Pending</p>
+        <h2 class="text-2xl font-bold text-yellow-600">{{ pendingParcels }}</h2>
       </div>
 
       <div class="bg-white p-4 rounded-lg shadow">
-        <p class="text-gray-500">
-          Delivered
-        </p>
-        <h2 class="text-2xl font-bold text-green-600">
-          {{ deliveredParcels }}
-        </h2>
+        <p class="text-gray-500">Delivered</p>
+        <h2 class="text-2xl font-bold text-green-600">{{ deliveredParcels }}</h2>
       </div>
 
       <div class="bg-white p-4 rounded-lg shadow">
-        <p class="text-gray-500">
-          Cancelled
-        </p>
-        <h2 class="text-2xl font-bold text-red-600">
-          {{ cancelledParcels }}
-        </h2>
+        <p class="text-gray-500">Cancelled</p>
+        <h2 class="text-2xl font-bold text-red-600">{{ cancelledParcels }}</h2>
       </div>
     </div>
 
@@ -175,20 +165,9 @@ onMounted(() => {
         </div>
 
         <div class="space-y-2 text-gray-700">
-          <p>
-            <strong>Receiver:</strong>
-            {{ parcel.receiver_name }}
-          </p>
-
-          <p>
-            <strong>Delivery Address:</strong>
-            {{ parcel.delivery_address }}
-          </p>
-
-          <p>
-            <strong>Created:</strong>
-            {{ parcel.created_at }}
-          </p>
+          <p><strong>Receiver:</strong> {{ parcel.receiver_name }}</p>
+          <p><strong>Delivery Address:</strong> {{ parcel.delivery_address }}</p>
+          <p><strong>Created:</strong> {{ parcel.created_at }}</p>
         </div>
 
         <div class="flex gap-3 mt-6">
@@ -207,6 +186,31 @@ onMounted(() => {
           </button>
         </div>
       </div>
+    </div>
+
+    <div
+      v-if="lastPage > 1"
+      class="flex justify-center gap-4 mt-8"
+    >
+      <button
+        :disabled="currentPage === 1"
+        @click="fetchParcels(currentPage - 1)"
+        class="bg-gray-700 text-white px-4 py-2 rounded disabled:bg-gray-300"
+      >
+        Previous
+      </button>
+
+      <span class="px-4 py-2 text-gray-700">
+        Page {{ currentPage }} of {{ lastPage }}
+      </span>
+
+      <button
+        :disabled="currentPage === lastPage"
+        @click="fetchParcels(currentPage + 1)"
+        class="bg-gray-700 text-white px-4 py-2 rounded disabled:bg-gray-300"
+      >
+        Next
+      </button>
     </div>
   </div>
 </template>
