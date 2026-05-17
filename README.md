@@ -1,44 +1,53 @@
-# courier-logistics-frontend
+# Courier Logistics Frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+Vue.js frontend for the Courier & Logistics Management System.
 
-## Recommended IDE Setup
+This application connects to a Laravel REST API backend and allows users to register, log in, manage parcels, and perform full CRUD operations through a simple dashboard.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+---
 
-## Recommended Browser Setup
+## Tech Stack
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- Vue.js 3
+- JavaScript
+- Vue Router
+- Pinia
+- Axios
+- Vite
+- HTML/CSS
 
-## Customize configuration
+---
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## Features
 
-## Project Setup
+### Authentication
+- User registration
+- User login
+- Logout
+- Token storage using localStorage
+- Protected frontend routes
+- Redirect unauthenticated users to login
+- Redirect authenticated users away from login/register pages
 
-```sh
-npm install
-```
+### Parcel Management
+- View user parcels
+- Create new parcel
+- Edit parcel details
+- Delete parcel
+- Display parcel tracking number
+- Display delivery status
+- Display receiver and delivery information
 
-### Compile and Hot-Reload for Development
+### API Integration
+- Axios service for Laravel API communication
+- Automatic Bearer token attachment using Axios interceptors
+- Protected API requests using Laravel Sanctum token authentication
 
-```sh
-npm run dev
-```
+---
 
-### Compile and Minify for Production
+## Backend API
 
-```sh
-npm run build
-```
+This frontend connects to the Laravel backend API:
 
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+```text
+http://127.0.0.1:8000/api
